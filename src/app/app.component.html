@@ -7,12 +7,12 @@
     class="btn-primary"
 
   >
-    <span>Open History</span>
+    <span>Відкрити історію</span>
   </button>
 
   <button
     class="btn-primary"
-    [disabled]="!pdfString"
+    [disabled]="!pdfString || (isLoading | async)"
     (click)="convertToPDF()"
   >
     Конвертувати в PDF
@@ -22,20 +22,22 @@
 <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
   <div class="h-full px-3 py-4 bg-gray-50 dark:bg-gray-800">
     <ul class="space-y-2 font-medium border-red-50 border-2 h-full overflow-y-auto rounded-lg">
-      <li *ngFor="let h of history">
-        <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="ms-3">{{ h }}</span>
+      <li *ngFor="let item of history | async">
+        <a class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+           (click)="selectFile(item.id)"
+        >
+          <span class="ms-3">{{ item.label }}</span>
         </a>
       </li>
     </ul>
   </div>
 </aside>
 
-<div class="sm:px-4 sm:pb-4 sm:ml-64 h-full grid grid-rows-2 gap-1">
+<div class="sm:px-4 sm:pb-4 sm:ml-64 h-full grid md:max-lg:grid-rows-2 gap-1 lg:grid-cols-2">
 
-  <div class="flex justify-center items-start sm:p-0 p-1">
+  <div class="flex justify-center items-start sm:p-0 p-1" >
     <textarea
-      class="w-full h-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+      class="w-full h-full p-4 text-input "
       placeholder="Enter your text..."
       [(ngModel)]="pdfString"
     ></textarea>

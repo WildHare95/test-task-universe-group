@@ -7,7 +7,12 @@ import { AppComponent } from './app.component';
 import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { PdfRequestInterceptorInterceptor } from "./interceptors/pdf-request-interceptor.interceptor";
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
+import { NgxIndexedDBModule } from "ngx-indexed-db";
+import { initFlowbite } from "flowbite";
+import { environment as env } from "../environments/environment.development";
+
+
 
 @NgModule({
   declarations: [
@@ -18,7 +23,8 @@ import {FormsModule} from "@angular/forms";
     AppRoutingModule,
     PdfJsViewerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxIndexedDBModule.forRoot(env.dbConfig)
   ],
   providers: [
     {
@@ -29,4 +35,8 @@ import {FormsModule} from "@angular/forms";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    initFlowbite();
+  }
+}

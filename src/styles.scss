@@ -20,7 +20,7 @@ app-root {
   flex-direction: column;
 }
 
-@layer base {
+@layer components {
   .btn-primary {
     @apply inline-flex items-center
     p-3 text-sm text-white
@@ -34,5 +34,11 @@ app-root {
     &:disabled {
       @apply bg-gray-400 text-gray-100;
     }
+  }
+
+  .text-input {
+    @apply border-2 border-gray-300
+    rounded-lg focus:outline-none focus:ring-2
+    focus:ring-blue-500 resize-none;
   }
 }
