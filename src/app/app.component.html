@@ -5,11 +5,16 @@
     aria-controls="default-sidebar"
     type="button"
     class="btn-primary"
+
   >
     <span>Open History</span>
   </button>
 
-  <button class="btn-primary">
+  <button
+    class="btn-primary"
+    [disabled]="!pdfString"
+    (click)="convertToPDF()"
+  >
     Конвертувати в PDF
   </button>
 </div>
@@ -32,11 +37,15 @@
     <textarea
       class="w-full h-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
       placeholder="Enter your text..."
+      [(ngModel)]="pdfString"
     ></textarea>
   </div>
 
   <div class="h-full">
-    <ng2-pdfjs-viewer [pdfSrc]="'document.pdf'"></ng2-pdfjs-viewer>
+    <ng2-pdfjs-viewer
+      [pdfSrc]="pdfSrc!"
+      #pdfJsViewerComponent
+    ></ng2-pdfjs-viewer>
   </div>
 
 </div>

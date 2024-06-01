@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { PdfRequestInterceptorInterceptor } from "./interceptors/pdf-request-interceptor.interceptor";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -13,9 +16,17 @@ import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PdfJsViewerModule
+    PdfJsViewerModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: PdfRequestInterceptorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
